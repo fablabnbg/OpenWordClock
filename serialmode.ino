@@ -8,12 +8,10 @@ void serialmode(){
   boolean finishedab = false;
   String arga = "";
   String argb = "";
-  String updated = "updated";
   Serial.begin(9600);
   
   //check version
   if (vercheck != ver){
-    /*
     Serial.println("EEPROM VALUES:");
     Serial.print("factor: ");
     Serial.println(EEPROM.readDouble(1), 20);  //factor
@@ -29,12 +27,11 @@ void serialmode(){
     Serial.println(EEPROM.readInt(14));  //fadetime
     Serial.println();
     Serial.println("DEFAULT VALUES:");
-    */
     printData();
     
     boolean answered = false;
     while(!answered){
-      Serial.println("Restore default Values?");
+      Serial.println("Version numbers don't match! Restore default Values? Y/N ('K' to keep factor)");
       while(Serial.available() <= 0){}
       next = Serial.read();
       if (next == 'Y') {
@@ -56,7 +53,7 @@ void serialmode(){
         answered = true;
         readValues();
       } else {
-        //Serial.println("Please answer my question first!");
+        Serial.println("Please answer my question first!");
       }
       EEPROM.update(0, ver);
       EEPROM.update(84, 42);
@@ -65,7 +62,7 @@ void serialmode(){
 
   while(smode){
     
-    //Serial.println("Type help; for help.");
+    Serial.println("Type help; for help.");
     printData();
 
     //get command
@@ -133,7 +130,7 @@ void serialmode(){
       //} else {
         factor = calibrate(arga.toInt(), argb.toInt());
         EEPROM.writeDouble(1, factor);
-        Serial.println(updated);
+        Serial.println("Factor succesfully updated!");
       //}
     }
 
@@ -144,9 +141,9 @@ void serialmode(){
       if(arga != "" && writefactor != factor) {
         factor = writefactor;
         EEPROM.writeDouble(1, factor);
-        Serial.println(updated);
+        Serial.println("Factor succesfully updated!");
       } else {
-        //Serial.println("Error!");
+        Serial.println("Error!");
       }
     }
 
@@ -154,10 +151,10 @@ void serialmode(){
       if (arga != "" && arga.toInt() != dim_night && arga.toInt() >= 0 && arga.toInt() <= 255){
         dim_night = arga.toInt();
         EEPROM.write(10, dim_night);  //dim_night
-        Serial.println(updated);
+        Serial.println("dim_night succesfully updated!");
       } 
       else {
-        //Serial.println("dim_night: Illegal argument! Type help; for more information.");
+        Serial.println("dim_night: Illegal argument! Type help; for more information.");
       }
     }
 
@@ -165,10 +162,10 @@ void serialmode(){
       if (arga != "" && arga.toInt() != dim_day && arga.toInt() >= 0 && arga.toInt() <= 255){
         dim_day = arga.toInt();
         EEPROM.write(11, dim_day);  //dim_day
-        Serial.println(updated);
+        Serial.println("dim_day succesfully updated!");
       } 
       else {
-        //Serial.println("dim_day: Illegal argument! Type help; for more information.");
+        Serial.println("dim_day: Illegal argument! Type help; for more information.");
       }
     }
 
@@ -176,10 +173,10 @@ void serialmode(){
       if (arga != "" && arga.toInt() != night_start && arga.toInt() > night_end && arga.toInt() < 24){
         night_start = arga.toInt();
         EEPROM.write(12, night_start);  //night_start
-        Serial.println(updated);
+        Serial.println("night_start succesfully updated!");
       } 
       else {
-        //Serial.println("night_start: Illegal argument! Type help; for more information.");
+        Serial.println("night_start: Illegal argument! Type help; for more information.");
       }
     }
 
@@ -187,10 +184,10 @@ void serialmode(){
       if (arga != "" && arga.toInt() != night_end && arga.toInt() < night_start && arga.toInt() < 24){
         night_end = arga.toInt();
         EEPROM.write(13, night_end);  //night_end
-        Serial.println(updated);
+        Serial.println("night_end succesfully updated!");
       } 
       else {
-        //Serial.println("night_end: Illegal argument! Type help; for more information.");
+        Serial.println("night_end: Illegal argument! Type help; for more information.");
       }
     }
 
@@ -198,16 +195,16 @@ void serialmode(){
       if (arga != "" && arga.toInt() != fadetime && arga.toInt() >= 0 && arga.toInt() <= 500){
         fadetime = arga.toInt();
         EEPROM.writeInt(14, fadetime);  //fadetime
-        Serial.println(updated);
+        Serial.println("fadetime succesfully updated!");
       } 
       else {
-        //Serial.println("fadetime: Illegal argument! Type help; for more information.");
+        Serial.println("fadetime: Illegal argument! Type help; for more information.");
       }
     }
 
     else if (command == "help") {
       //printHelp();            //TODO!!!
-      //Serial.println("Sorry! Can't help you yet.");
+      Serial.println("Sorry! Can't help you yet.");
     }
     
     else if (command == "exit") {
@@ -215,11 +212,9 @@ void serialmode(){
     }
 
     else {
-      /*
       Serial.print("How do I ");
       Serial.print(command);
       Serial.println("?");
-      */
     }
 
     finishedc = false;
@@ -237,7 +232,6 @@ void serialmode(){
 } //end serialmode
 
 void printData(){
-  /*
   Serial.print("$2 Factor: ");
   Serial.println(factor, 20);
   Serial.print("$3 dim_night: ");
@@ -252,5 +246,4 @@ void printData(){
   Serial.println(fadetime);
   Serial.println();
   delay(500);
-  */
 }

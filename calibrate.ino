@@ -11,8 +11,7 @@ double calibrate(int timeperiod, int iterations){
   long richtwert = timeperiod*1000000;
 
   pinMode(signalPin, INPUT);
-
-  /*
+  
   Serial.print("Intervall for measurement: ");
   Serial.println(timeperiod);
   Serial.print("Iterations: ");
@@ -20,7 +19,7 @@ double calibrate(int timeperiod, int iterations){
   Serial.println();
   Serial.println("Start");
   Serial.println();
-  */
+
 
   for(int i = 0; i < iterations; i++){
     while(analogRead(signalPin) > 150){}
