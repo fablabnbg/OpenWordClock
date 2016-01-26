@@ -98,7 +98,7 @@ void setup() {
   }
 
   //initial calibrate?
-  if(EEPROM.read(84) != 42){
+  if(EEPROM.read(84) != 42 ){
     Serial.begin(9600);
     
     factor = calibrate(15, 2);
