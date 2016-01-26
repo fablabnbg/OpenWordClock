@@ -17,4 +17,4 @@ Zehn: A4
 Fünf: A5
 
 Button_hour: A6
-Button_min: A7
+Button_min: A7 
