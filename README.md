@@ -6,7 +6,7 @@ The front and the inserts are made with a lasercutter. Compared to other project
 the 42 LEDS are directly connected to the atmega chip.
 Just flash files to your Arduino of choice (you'll need A6/A7). Code was tested on an ATmega328P and 168P(seperate branch!)
 
-Connect LEDs with appropriate resistor directly to your Arduino pins:
+Connect LEDs with 150 ohm resistors directly to your Arduino pins:
 * Eins: D1
 * [...]
 * Zwölf: D12
