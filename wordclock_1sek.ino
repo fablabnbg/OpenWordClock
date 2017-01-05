@@ -210,11 +210,12 @@ void loop() {
       state = 3;
     }
   }
-  else if((minuten < 17) || (minuten == 17 && sekunden <= 30)){       // Viertel
+  else if((minuten < 17) || (minuten == 17 && sekunden <= 30)){       // Viertel nach
     if(state != 4){
       allow();
       SoftPWMSet(Viertel, dim);
-      add = 1;
+      SoftPWMSet(Nach, dim);
+      add = 0;
       state = 4;
     }
   }
